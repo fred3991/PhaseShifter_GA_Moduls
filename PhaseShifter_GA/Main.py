@@ -7,6 +7,10 @@ import random
 import toolz
 import pickle
 
+import os.path
+import datetime
+
+
 #Классы
 from StateSystem import StateSystem
 from State import State
@@ -50,18 +54,42 @@ import ConfigModule
 # Start GA;
 #Set frequency in GHz
 ConfigModule.frequency = 10; #Frequency in GHz
-ConfigModule.List_Frequencies = np.arange(2, 20.1, 0.1); # Нужный лист частот для посмотрое
+ConfigModule.List_Frequencies = np.arange(8, 12, 1); # Нужный лист частот для посмотрое
 ConfigModule.MutationCoefficient = 3;
 ConfigModule.FitnessGoal = 0;
-ConfigModule.Iterations = 1000;
-ConfigModule.PopulSize = 16;
+ConfigModule.Iterations = 128;
+ConfigModule.PopulSize = 64;
 # def GeneticAlgorithm(PopulSize, FitnessGoal, MutationCoefficient, Iteration):
 #    return FinalSolution, IterationList, FitnessList
-FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
 
-DataResult = GetFinalSystem(FinalSolution);
 
-print('END All!!!!')
+
+
+FileCheck = os.path.exists('C:/Users/FedorovEA/source/repos/PhaseShifter_GA/PhaseShifter_GA/DataResult'+str(ConfigModule.frequency)+'.pkl')
+print('Читаем');
+print(str(FileCheck));
+
+
+
+#FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
+
+#DataResult = GetFinalSystem(FinalSolution);
+
+
+#ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz.txt', 'w')
+#ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
+#ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
+#ConfigStateFile.write(DataResult.StateSystemName);
+#ConfigStateFile.close;
+
+
+pickle.dump(DataResult, open('DataResult'+str(ConfigModule.frequency)+'.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
+
+print('Читаем');
+
+
+
+
 
 
 
@@ -113,3 +141,4 @@ print('END All!!!!')
 
 
 
+print('END All!!!!');
