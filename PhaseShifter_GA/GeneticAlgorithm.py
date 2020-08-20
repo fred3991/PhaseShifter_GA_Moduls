@@ -35,9 +35,13 @@ from Calc_RMS_List_Phase import Calc_RMS_List_Phase
 from Calc_RMS_List_S21 import Calc_RMS_List_S21
 
 
+
+
 import ConfigModule
 
 def GeneticAlgorithm(PopulSize, FitnessGoal, MutationCoefficient, Iteration):
+
+
     Population = [];
     IterationList = []
     FitnessList  = []

@@ -35,7 +35,9 @@ def Panmixis(Population):
             BitA = SystemFather.StateList[state_number].StateBitA;     
             BitB = SystemFather.StateList[state_number].StateBitB;
 
-        CurrentState = getStateForGA(state_number, BitA, BitB);               
+        CurrentState = getStateForGA(state_number, BitA, BitB);    
+        
+
         StateList.append(CurrentState)
     RMS_Phase = CalcRMSPhase(StateList);
     RMS_S21 = CalcRMSS21(StateList);         

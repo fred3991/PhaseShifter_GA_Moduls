@@ -10,10 +10,12 @@ import pickle
 from State import State
 
 
+import ConfigModule
+
 def getStateFile(State_Number, BitA, BitB):
     ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
-    S21 = float(ntwk.s21[str(frequency)+'ghz'].s_db[...]);
-    Fi  = float(ntwk.s21[str(frequency)+'ghz'].s_deg[...]);
+    S21 = float(ntwk.s21[str(ConfigModule.frequency)+'ghz'].s_db[...]);
+    Fi  = float(ntwk.s21[str(ConfigModule.frequency)+'ghz'].s_deg[...]);
     StateFullName = ('State_'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB));
     StateBitA = BitA;
     StateBitB = BitB;

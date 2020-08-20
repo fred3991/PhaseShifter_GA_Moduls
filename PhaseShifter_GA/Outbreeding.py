@@ -47,7 +47,9 @@ def Outbreeding(Population):
             BitB = SystemMother.StateList[state_number].StateBitB; 
 
 
-        CurrentState = getStateForGA(state_number, BitA, BitB);               
+        CurrentState = getStateForGA(state_number, BitA, BitB);         
+        
+
         StateList.append(CurrentState)
     RMS_Phase = CalcRMSPhase(StateList);
     RMS_S21 = CalcRMSS21(StateList);         
