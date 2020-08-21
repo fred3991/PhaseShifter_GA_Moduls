@@ -44,7 +44,12 @@ from FinalSystemData import FinalSystemData
 
 from GetFinalSystem import GetFinalSystem
 from DrawFunction import DrawFunction
+
+
+
 import ConfigModule
+
+
 
 # Options
 # Start GA;
@@ -52,12 +57,12 @@ import ConfigModule
 
 
 
-ConfigModule.frequency = 8; #Frequency in GHz
-ConfigModule.List_Frequencies = np.arange(3, 20, 1); # Нужный лист частот для посмотрое
-ConfigModule.MutationCoefficient = 3;
-ConfigModule.FitnessGoal = 0;
-ConfigModule.Iterations = 3;
-ConfigModule.PopulSize = 64;
+#ConfigModule.frequency = 8; #Frequency in GHz
+#ConfigModule.List_Frequencies = np.arange(3, 20, 1); # Нужный лист частот для посмотрое
+#ConfigModule.MutationCoefficient = 3;
+#ConfigModule.FitnessGoal = 0;
+#ConfigModule.Iterations = 256;
+#ConfigModule.PopulSize = 64;
 
 
 # def GeneticAlgorithm(PopulSize, FitnessGoal, MutationCoefficient, Iteration):
@@ -73,11 +78,14 @@ FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulS
 DataResult = GetFinalSystem(FinalSolution); 
 
 
+
 ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz.txt', 'w')
 ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
 ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
 ConfigStateFile.write(DataResult.StateSystemName);
 ConfigStateFile.close;
+
+
 
 
 
@@ -110,19 +118,19 @@ Plot_RMS_S21_vs_Frequency = DrawFunction(
                      'b*', 4, str('RMS S21 Error '+str(ConfigModule.frequency)+' GHz'), 'Frequency, GHz', 'RMS S21 Error, °', 'RMS S21 error vs. freq');
 
 
-Plot_Fitness_vs_Iterations = DrawFunction(
+#Plot_Fitness_vs_Iterations = DrawFunction(
 
-                      IterationList, 
-                      FitnessList, 
-                     ( 0,               max(IterationList)  ),
+#                      IterationList, 
+#                      FitnessList, 
+#                     ( 0,               max(IterationList)  ),
 
-                     ( 0,                                              round(float(max(FitnessList)))), 
+#                     ( 0,                                              round(float(max(FitnessList)))), 
 
-                     np.arange(0,   float(max(IterationList)),          step=(ConfigModule.Iterations//10)), 
+#                     np.arange(0,   float(max(IterationList)),          step=(ConfigModule.Iterations//10)), 
 
-                     np.arange(0 ,   float(max(FitnessList)+1), step=round(min(FitnessList),2)), 
+#                     np.arange(0 ,   float(max(FitnessList)+1), step=round(min(FitnessList),2)), 
 
-                     'g*', 4, str('Iterations'), 'Iterations', 'Fitness Value', 'Iterations vs. Fitness Value');
+#                     'g*', 4, str('Iterations'), 'Iterations', 'Fitness Value', 'Iterations vs. Fitness Value');
 
 
 

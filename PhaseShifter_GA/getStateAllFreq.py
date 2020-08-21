@@ -9,6 +9,8 @@ import pickle
 
 from State import State
 
+import ConfigModule
+
 def getStateAllFreq(State_Number, BitA, BitB, Frequencies):
     ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p');
     S21  = [];  #создание списков для с21 и фазы для диапазона частот количеством len(Frequencies)
