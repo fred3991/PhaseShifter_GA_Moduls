@@ -9,10 +9,12 @@ import pickle
 
 
 
-List_Frequencies = np.arange(8, 12, 0.1); # Нужный лист частот для посмотрое
+List_Frequencies = np.arange(2, 21.1, 0.1); # Нужный лист частот для посмотрое
 MutationCoefficient = 3;
 FitnessGoal = 0;
-Iterations = 5;
-PopulSize = 32;
-frequency = 10.5; #Frequency in GHz
+Iterations = 2500;
+PopulSize = 96;
+frequency = 8; #Frequency in GHz
+
+
 

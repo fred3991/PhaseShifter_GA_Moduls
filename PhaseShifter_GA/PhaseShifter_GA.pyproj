@@ -30,6 +30,9 @@
     <Compile Include="CalcFitness.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FullDataSet.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GetSystemRandom.py">
       <SubType>Code</SubType>
     </Compile>
@@ -73,6 +76,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DrawFunction.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CreateDataSet.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RemoveTwins.py">
