@@ -103,32 +103,21 @@ from DrawFunction import DrawFunction
 #pickle.dump(FullDataSet_8GHz, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
 
 
-                       # Final_StateList, 
-                       #CentralFrequency, 
-                       #RMS_Phase_CentralFrequency, 
-                       #RMS_S21_CentralFrequency, 
-                       #FitnessValue_CentralFrequency, 
-                       #Final_Iteration_List, 
-                       #Final_Fitness_List,
-                       #Final_List_Frequencies, 
-                       #Final_RMS_Phase_List, 
-                       #Final_RMS_S21_List):
+#                        Final_StateList, 
+#                       CentralFrequency, 
+#                       RMS_Phase_CentralFrequency, 
+#                       RMS_S21_CentralFrequency, 
+#                       FitnessValue_CentralFrequency, 
+#                       Final_Iteration_List, 
+#                       Final_Fitness_List,
+#                       Final_List_Frequencies, 
+#                       Final_RMS_Phase_List, 
+#                       Final_RMS_S21_List):
 
 
-#################################  8  GHz
-DataSetResult_8GHz = pickle.load(open('FullDataSet_8GHz.pkl', 'rb'));
-print('загрузил?!!!!');
-
-##график РМС фазы
-#Plot_RMS_Phase_vs_Frequency = DrawFunction(
-#                              DataSetResult_10GHz.Final_List_Frequencies, 
-#                              DataSetResult_10GHz.Final_RMS_Phase_List, 
-#                     ( int(min(DataSetResult_10GHz.Final_List_Frequencies)-1),               int(max(DataSetResult_10GHz.Final_List_Frequencies)+2)     ),
-#                     ( min(DataSetResult_10GHz.Final_RMS_Phase_List)-min(DataSetResult_10GHz.Final_RMS_Phase_List),  max(DataSetResult_10GHz.Final_RMS_Phase_List)+min(DataSetResult_10GHz.Final_RMS_Phase_List)   ), 
-#                     np.arange( int(min(DataSetResult_10GHz.Final_List_Frequencies)-1),               int(max(DataSetResult_10GHz.Final_List_Frequencies)+2) , step=1 ), 
-#                     np.arange( min(DataSetResult_10GHz.Final_RMS_Phase_List)-min(DataSetResult_10GHz.Final_RMS_Phase_List),  max(DataSetResult_10GHz.Final_RMS_Phase_List)+min(DataSetResult_10GHz.Final_RMS_Phase_List)   , step = round(min(DataSetResult_10GHz.Final_RMS_Phase_List),5)  ), 
-#                     'rh', 4, str('RMS Phase Error '+str(DataSetResult_10GHz.CentralFrequency)+' GHz'), 'Frequency, GHz', 'RMS Phase Error, °', 'RMS phase error vs. freq');
-#########################################
+################################  8  GHz
+#DataSetResult_8GHz = pickle.load(open('FullDataSet_8GHz.pkl', 'rb'));
+#print('загрузил?!!!!');
 
 
 
@@ -169,6 +158,93 @@ Type_RS21 = type(New_R21);
 Type_Theta = type(NewTheta);
 
 plt.polar(NewTheta,  New_R21, 'rh', MarkerSize = 4);
+plt.show();
+
+
+FinalSet_List = [];
+FreqStates = []
+
+
+def getPhaseFreq(State_Number, BitA, BitB, Freq):
+    ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
+    Fi  = float(ntwk.s21[str(Freq)+'ghz'].s_deg[...]);
+    StatePhase = Fi;
+    return StatePhase
+
+
+FinalSet_List = [];
+PhaseListFreq = [];
+
+
+
+for allstates in range(0,64,1):
+    for allfreqlist in np.arange(7.5,8.6,0.1):
+        print('я работаю, подожди  '+str(allstates));
+        PhaseListFreq.append(getPhaseFreq(allstates,DataSetResult_8GHz.Final_StateList[allstates].StateBitA,DataSetResult_8GHz.Final_StateList[allstates].StateBitB,allfreqlist))
+
+ 
+    FinalSet_List.append(PhaseListFreq);
+    PhaseListFreq=[];
+
+
+
+FirstStatePhaseList = [];
+
+for i in range(len(np.arange(7.5,8.6,0.1))):
+    FirstStatePhaseList.append(FinalSet_List[0][i]);
+
+for freq_range in range(len(np.arange(7.5,8.6,0.1))):
+    for states_unwrap in range(0,64,1):
+        FinalSet_List[states_unwrap][freq_range] = FinalSet_List[states_unwrap][freq_range]-FirstStatePhaseList[freq_range];
+
+
+Final_List_Phases = [];
+
+for freqlist in range(len(np.arange(7.5,8.6,0.1))):
+
+    FreqOneList = [];
+
+    for i in range(0,64,1):
+
+        FreqOneList.append(FinalSet_List[i][freqlist]-FinalSet_List[0][freqlist]);
+      
+    FreqOneList = np.deg2rad(FreqOneList);
+    FreqOneList = np.unwrap(FreqOneList);
+    FreqOneList = np.rad2deg(FreqOneList);
+    Final_List_Phases.append(FreqOneList)
+ 
+
+SuperFinal = [];
+TempFreqs = [];
+for freq_range in range(len(np.arange(7.5,8.6,0.1))):
+    for states_unwrap in range(0,64,1):
+        TempFreqs.append(Final_List_Phases[freq_range][states_unwrap]);
+
+    SuperFinal.append(TempFreqs);
+    TempFreqs = [];
+
+
+
+
+LastChance = [];
+Tempo = [];
+
+for j in range(0,64,1):
+    for i in range(len(np.arange(7.5,8.6,0.1))):
+        Tempo.append(SuperFinal[i][j]);
+    LastChance.append(Tempo);
+    Tempo = [];
+
+
+
+
+x = np.arange(7.5,8.6,0.1);
+
+for i in range(0,64,1):
+    plt.plot(x,LastChance[i]);
+
+plt.xlabel('Частота, ГГц')
+plt.ylabel('Фаза сигнала, °')
 plt.show();
 
 
