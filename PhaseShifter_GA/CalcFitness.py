@@ -25,7 +25,8 @@ def CalcFitness(RMS_Phase, RMS_S21):
     if RMS_S21_Fit>0.5:
         RMS_S21_Fit = 0.5;
 
-    FitnessValue = RMS_Phase#+RMS_S21_Fit; 
+    #FitnessValue = RMS_Phase_Fit+RMS_S21_Fit; 
+    FitnessValue = RMS_Phase;
 
     return FitnessValue
 
