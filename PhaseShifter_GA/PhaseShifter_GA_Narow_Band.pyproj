@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f6f1e304-abf6-40fe-b582-4ecfa4c2320d</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
+    <ProjectHome>
+    </ProjectHome>
     <StartupFile>Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PhaseShifter_GA</Name>
+    <Name>PhaseShifter_GA_Narow_Band</Name>
     <RootNamespace>PhaseShifter_GA</RootNamespace>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
   </PropertyGroup>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PhaseShifter_GA", "PhaseShifter_GA\PhaseShifter_GA.pyproj", "{F6F1E304-ABF6-40FE-B582-4ECFA4C2320D}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PhaseShifter_GA_Narow_Band", "PhaseShifter_GA\PhaseShifter_GA_Narow_Band.pyproj", "{F6F1E304-ABF6-40FE-B582-4ECFA4C2320D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
