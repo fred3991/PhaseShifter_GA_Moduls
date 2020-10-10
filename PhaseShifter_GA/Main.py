@@ -56,22 +56,141 @@ from DrawFunction import DrawFunction
 
 
 
-## Options
+## Options ы
 ## Start GA;
 ##Set frequency in GHz
 
+#ListOfStates = [];
+#for State_Number in range(0,64,1):
+#    for BitA in range(0,8,1):
+#        for BitB in range(0,8,1):
+#            ListOfStates.append(getStateForGA(State_Number, BitA, BitB));
 
-FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
-DataResult = GetFinalSystem(FinalSolution); 
 
-ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz_SmallPopul32.txt', 'w')
-ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
-ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
-ConfigStateFile.write(DataResult.StateSystemName);
-ConfigStateFile.close;
+            
+#DegreeList = [];
+#S21List = [];
 
-FullDataSet = CreateDataSet(FinalSolution, IterationList, FitnessList, DataResult);
-pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_SmallPopul32.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
+#for i in range(0,4096,1):
+#    DegreeList.append(ListOfStates[i].StatePhase);
+#    S21List.append(ListOfStates[i].StateS21);
+
+
+
+#rho =  S21List;
+#theta =  DegreeList;
+
+#RHO = [];
+#Theta = [];
+
+#for i in range(0,4096,1):
+#    Theta.append((theta[i]*(np.pi/180)));
+#    RHO.append(10**(rho[i]/20));
+
+
+
+#plt.polar(Theta,  RHO, 'k*', markersize = 1, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='Optimized for 10 GHz');
+
+
+#plt.ylim(1,1.5);
+##plt.xlim(0,np.pi/4);
+#plt.yticks(np.arange(1,1.5,0.5))
+
+#plt.grid(True);
+
+#plt.legend(loc=3);
+
+
+#plt.show();
+################################################################
+
+
+
+#print('isho');
+
+
+
+
+
+
+
+
+#FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
+#DataResult = GetFinalSystem(FinalSolution); 
+
+#ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz_Test.txt', 'w')
+#ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
+#ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
+#ConfigStateFile.write(DataResult.StateSystemName);
+#ConfigStateFile.close;
+
+#FullDataSet = CreateDataSet(FinalSolution, IterationList, FitnessList, DataResult);
+#pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Test.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
+
+
+
+
+
+############## СКО ФАЗА человек и нет общее########################################
+#ViewResult =  pickle.load(open('FullDataSet_10GHz_PhaseOnly.pkl', 'rb'));
+#ViewResultHuman =  pickle.load(open('FullDataSet_10GHz_Human.pkl', 'rb'));
+#ViewResultSuperBad = pickle.load(open('FullDataSet_10GHz_SuperBadHuman.pkl', 'rb'));
+
+
+#print('загрузил?!!!!');
+
+#x = ViewResult.Final_List_Frequencies;
+#y1 = ViewResult.Final_RMS_Phase_List
+#y2 = ViewResultHuman.Final_RMS_Phase_List;
+#y3 = ViewResultSuperBad.Final_RMS_Phase_List;
+
+
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+
+#plt.ylabel('СКО фаза, °',**csfont);  # Подписи у
+#plt.xlabel('Частота, ГГц',**csfont);  # Подписи х
+
+#plt.xlim(5,               15     );  
+#plt.ylim(0.25,               4 );  
+
+#plt.xticks(np.arange(5,15.5,1))
+#plt.yticks(np.arange(0.25,4,0.25))
+
+#plt.grid(color='k', linestyle='--', linewidth=0.3)
+
+#plt.plot(x,y1, 'ro-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='ГА' ,markevery=5);
+#plt.plot(x,y2, 'gP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='Ручной подбор',markevery=5);
+#plt.plot(x,y3, 'bs-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='Неоптимизированный' ,markevery=5);
+
+#plt.legend(loc=0);
+#plt.show()
+########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -138,7 +257,8 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 
 
 
-############### СКО ФАЗА ВСЕ общее########################################
+############## СКО ФАЗА ВСЕ общее########################################
+
 #ViewResult = pickle.load(open('FullDataSet_8GHz_PhaseOnly.pkl', 'rb'));
 #ViewResult85 = pickle.load(open('FullDataSet_8.5GHz.pkl', 'rb'));
 #ViewResult9 = pickle.load(open('FullDataSet_9GHz.pkl', 'rb'));
@@ -148,6 +268,8 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #ViewResult11 = pickle.load(open('FullDataSet_11GHz.pkl', 'rb'));
 #ViewResult115 = pickle.load(open('FullDataSet_11.5GHz.pkl', 'rb'));
 #ViewResult12 = pickle.load(open('FullDataSet_12GHz.pkl', 'rb'));
+
+#ViewResultSuperBad = pickle.load(open('FullDataSet_10GHz_SuperBadHuman.pkl', 'rb'));
 
 
 #print('загрузил?!!!!');
@@ -162,33 +284,52 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y7 = ViewResult11.Final_RMS_Phase_List;
 #y8 = ViewResult115.Final_RMS_Phase_List;
 #y9 = ViewResult12.Final_RMS_Phase_List;
+#y10 = ViewResultSuperBad.Final_RMS_Phase_List
 
-#plt.ylabel('RMS Phase Error, °');  # Подписи у
-#plt.xlabel('Frequency, GHz');  # Подписи х
+
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'};
+
+#plt.ylabel('СКО фаза, °',**csfont);  # Подписи у
+#plt.xlabel('Частота, ГГц', **csfont);  # Подписи х
 
 #plt.xlim(5,               15     );  
-#plt.ylim(0,               5.5 );  
+#plt.ylim(0.25,               4.5 );  
 
 #plt.xticks(np.arange(5,15.5,1))
-#plt.yticks(np.arange(0,5,0.25))
+#plt.yticks(np.arange(0.25,4.5,0.25))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.plot(x,y1, 'ro-', markersize = 4, markerFacecolor = 'k', label ='8 GHz');
-#plt.plot(x,y2, 'go-', markersize = 4,  markerFacecolor = 'y',label ='8.5 GHz');
-#plt.plot(x,y3, 'bh-', markersize = 4,  markerFacecolor = 'w',label ='9 GHz');
-#plt.plot(x,y4, 'kd-', markersize = 4,  markerFacecolor = 'k',label ='9.5 GHz');
-#plt.plot(x,y5, 'mh-', markersize = 4, markerFacecolor = 'k', label ='10 GHz');
-#plt.plot(x,y6, 'yo-', markersize = 4,  markerFacecolor = 'g',label ='10.5 GHz');
-#plt.plot(x,y7, 'cd-', markersize = 4,  markerFacecolor = 'k',label ='11 GHz');
-#plt.plot(x,y8, 'kh-', markersize = 4,  markerFacecolor = 'y',label ='11.5 GHz');
-#plt.plot(x,y9, 'ko-', markersize = 4,  markerFacecolor = 'w',label ='12 GHz');
+#plt.plot(x,y1, 'ro-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='8 ГГц' ,markevery=5);
+#plt.plot(x,y2, 'gP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='8.5 ГГц',markevery=5);
+#plt.plot(x,y3, 'bs-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='9 ГГц' ,markevery=5);
+#plt.plot(x,y4, 'kd-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='9.5 ГГц',markevery=5);
+#plt.plot(x,y5, 'yh-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'g', label ='10 ГГц' ,markevery=5);
+#plt.plot(x,y6, 'cP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'r',label ='10.5 ГГц',markevery=5);
+#plt.plot(x,y7, 'rv-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='11 ГГц' ,markevery=5);
+#plt.plot(x,y8, 'k.-.', markersize = 9, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='11.5 ГГц',markevery=5);
+#plt.plot(x,y9, 'r*-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='12 ГГц' ,markevery=5);
+#plt.plot(x,y10,'kX-', markersize = 8, linewidth = 2.5, markeredgewidth = 1, markerFacecolor = 'r', label ='Неоптимизированно' ,markevery=5);
+
 
 #plt.legend(loc=0);
-#plt.show()
-###########################################################
+#plt.show();
 
-############### СКО S21 ВСЕ общее########################################
+##########################################################
+
+############ СКО S21 ВСЕ общее########################################
 #ViewResult = pickle.load(open('FullDataSet_8GHz_PhaseOnly.pkl', 'rb'));
 #ViewResult85 = pickle.load(open('FullDataSet_8.5GHz.pkl', 'rb'));
 #ViewResult9 = pickle.load(open('FullDataSet_9GHz.pkl', 'rb'));
@@ -198,6 +339,10 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #ViewResult11 = pickle.load(open('FullDataSet_11GHz.pkl', 'rb'));
 #ViewResult115 = pickle.load(open('FullDataSet_11.5GHz.pkl', 'rb'));
 #ViewResult12 = pickle.load(open('FullDataSet_12GHz.pkl', 'rb'));
+
+
+#ViewResultSuperBad = pickle.load(open('FullDataSet_10GHz_SuperBadHuman.pkl', 'rb'));
+
 
 
 #print('загрузил?!!!!');
@@ -212,32 +357,64 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y7 = ViewResult11.Final_RMS_S21_List;
 #y8 = ViewResult115.Final_RMS_S21_List;
 #y9 = ViewResult12.Final_RMS_S21_List;
+#y10 = ViewResultSuperBad.Final_RMS_S21_List;
 
-#plt.ylabel('RMS S21 Error, dB');  # Подписи у
-#plt.xlabel('Frequency, GHz');  # Подписи х
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'};
+
+
+#plt.xlabel('Частота, ГГц', **csfont);  # Подписи х
+
+#plt.ylabel('СКО |S21|, дБ',**csfont);  # Подписи у
+
 
 #plt.xlim(5,               15     );  
-#plt.ylim(0.1,               0.75 );  
+#plt.ylim(0.1,               0.75);  
 
-#plt.xticks(np.arange(5,15.5,1))
-#plt.yticks(np.arange(0.1,0.75,0.05))
+#plt.xticks(np.arange(5,15.5,1));
+#plt.yticks(np.arange(0.1,0.75,0.1));
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
 
-#plt.plot(x,y1, 'ro-', markersize = 4, markerFacecolor = 'k', label ='8 GHz');
-#plt.plot(x,y2, 'go-', markersize = 4,  markerFacecolor = 'y',label ='8.5 GHz');
-#plt.plot(x,y3, 'bh-', markersize = 4,  markerFacecolor = 'w',label ='9 GHz');
-#plt.plot(x,y4, 'kd-', markersize = 4,  markerFacecolor = 'k',label ='9.5 GHz');
-#plt.plot(x,y5, 'mh-', markersize = 4, markerFacecolor = 'k', label ='10 GHz');
-#plt.plot(x,y6, 'yo-', markersize = 4,  markerFacecolor = 'g',label ='10.5 GHz');
-#plt.plot(x,y7, 'cd-', markersize = 4,  markerFacecolor = 'k',label ='11 GHz');
-#plt.plot(x,y8, 'kh-', markersize = 4,  markerFacecolor = 'y',label ='11.5 GHz');
-#plt.plot(x,y9, 'ko-', markersize = 4,  markerFacecolor = 'w',label ='12 GHz');
+##plt.plot(x,y1, 'ro-', color = 'black', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='8 ГГц' ,markevery=5);
+##plt.plot(x,y2, 'gP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='8.5 ГГц',markevery=5);
+##plt.plot(x,y3, 'bs-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='9 ГГц' ,markevery=5);
+##plt.plot(x,y4, 'kd-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='9.5 ГГц',markevery=5);
+##plt.plot(x,y5, 'yh-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'g', label ='10 ГГц' ,markevery=5);
+##plt.plot(x,y6, 'cP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'r',label ='10.5 ГГц',markevery=5);
+##plt.plot(x,y7, 'rv-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='11 ГГц' ,markevery=5);
+##plt.plot(x,y8, 'k.-.', markersize = 9, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='11.5 ГГц',markevery=5);
+##plt.plot(x,y9, 'r*-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='12 ГГц' ,markevery=5);
+
+#plt.plot(x,y1, 'o-',  color = 'grey', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='8 ГГц' ,markevery=5);
+#plt.plot(x,y2, 'gP-',  color = 'dimgray',  markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='8.5 ГГц',markevery=5);
+#plt.plot(x,y3, 'bs-',  color = 'crimson', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='9 ГГц' ,markevery=5);
+#plt.plot(x,y4, 'd-',  color = 'indigo', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='9.5 ГГц',markevery=5);
+#plt.plot(x,y5, 'h-',  color = 'y', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'g', label ='10 ГГц' ,markevery=5);
+#plt.plot(x,y6, 'P-',  color = 'fuchsia', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w',label ='10.5 ГГц',markevery=5);
+#plt.plot(x,y7, 'v-',  color = 'navy', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='11 ГГц' ,markevery=5);
+#plt.plot(x,y8, '.-.',  color = 'grey', markersize = 9, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='11.5 ГГц',markevery=5);
+#plt.plot(x,y9, 'h-.',  color = 'firebrick', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='12 ГГц' ,markevery=5);
+#plt.plot(x,y10,'kX-', markersize = 8, linewidth = 2.5, markeredgewidth = 1, markerFacecolor = 'r', label ='Неоптимизированно' ,markevery=5);
+
+
+
 
 #plt.legend(loc=0);
 #plt.show()
-############################################################
+#########################################################
 
 
 ############### ГА Анализ Итерации - фитнес ВСЕ общее########################################
@@ -265,8 +442,27 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y8 = ViewResult115.Final_Fitness_List;
 #y9 = ViewResult12.Final_Fitness_List;
 
-#plt.ylabel('Fitness Value');  # Подписи у
-#plt.xlabel('Iterations');  # Подписи х
+
+
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+#plt.ylabel('Фитнесс-функция',**csfont);  # Подписи у
+#plt.xlabel('Итерации', **csfont);  # Подписи х
+
+#plt.ylabel('Фитнесс-функция');  # Подписи у
+#plt.xlabel('Итерации');  # Подписи х
 
 #plt.xlim(0,               4096     );  
 #plt.ylim(0.4,              1.2 );  
@@ -274,20 +470,29 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #plt.xscale("linear");
 
 #plt.xticks(np.arange(0,4096,500))
-#plt.yticks(np.arange(0.4,1.2,0.1))
+#plt.yticks(np.arange(0.4,1.2,0.05))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
+#plt.plot(x,y1, 'o-',  color = 'grey', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='8 ГГц' ,markevery=250);
+#plt.plot(x,y2, 'gP-',  color = 'orange',  markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='8.5 ГГц',markevery=250);
+#plt.plot(x,y3, 'bs-',  color = 'crimson', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='9 ГГц' ,markevery=250);
+#plt.plot(x,y4, 'd-',  color = 'indigo', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='9.5 ГГц',markevery=250);
+#plt.plot(x,y5, 'h-',  color = 'y', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'g', label ='10 ГГц' ,markevery=250);
+#plt.plot(x,y6, 'P-',  color = 'c', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'r',label ='10.5 ГГц',markevery=250);
+#plt.plot(x,y7, 'v-',  color = 'navy', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='11 ГГц' ,markevery=250);
+#plt.plot(x,y8, '.-.',  color = 'grey', markersize = 9, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='11.5 ГГц',markevery=250);
+#plt.plot(x,y9, '*-',  color = 'purple', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='12 ГГц' ,markevery=250);
 
-#plt.plot(x,y1, 'r-.', markersize = 2, markerFacecolor = 'k', label ='8 GHz');
-#plt.plot(x,y2, 'g.-', markersize = 2,  markerFacecolor = 'y',label ='8.5 GHz');
-#plt.plot(x,y3, 'b.--', markersize = 2,  markerFacecolor = 'w',label ='9 GHz');
-#plt.plot(x,y4, 'k.-', markersize = 2,  markerFacecolor = 'k',label ='9.5 GHz');
-#plt.plot(x,y5, 'm.-.', markersize = 2, markerFacecolor = 'k', label ='10 GHz');
-#plt.plot(x,y6, 'y-.', markersize = 2,  markerFacecolor = 'g',label ='10.5 GHz');
-#plt.plot(x,y7, 'c-.', markersize = 2,  markerFacecolor = 'k',label ='11 GHz');
-#plt.plot(x,y8, 'k--', markersize = 2,  markerFacecolor = 'y',label ='11.5 GHz');
-#plt.plot(x,y9, 'k.-.', markersize = 2,  markerFacecolor = 'w',label ='12 GHz');
+##plt.plot(x,y1, 'rм.', markersize = 2, markerFacecolor = 'k', label ='8 GHz');
+##plt.plot(x,y2, 'g.-', markersize = 2,  markerFacecolor = 'y',label ='8.5 GHz');
+##plt.plot(x,y3, 'b.--', markersize = 2,  markerFacecolor = 'w',label ='9 GHz');
+##plt.plot(x,y4, 'k.-', markersize = 2,  markerFacecolor = 'k',label ='9.5 GHz');
+##plt.plot(x,y5, 'm.-.', markersize = 2, markerFacecolor = 'k', label ='10 GHz');
+##plt.plot(x,y6, 'y-.', markersize = 2,  markerFacecolor = 'g',label ='10.5 GHz');
+##plt.plot(x,y7, 'c-.', markersize = 2,  markerFacecolor = 'k',label ='11 GHz');
+##plt.plot(x,y8, 'k--', markersize = 2,  markerFacecolor = 'y',label ='11.5 GHz');
+##plt.plot(x,y9, 'k.-.', markersize = 2,  markerFacecolor = 'w',label ='12 GHz');
 
 #plt.legend(loc=0);
 #plt.show()
@@ -307,23 +512,39 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y2 = ViewResultMut30.Final_Fitness_List;
 
 
-#plt.ylabel('Fitness Value');  # Подписи у
-#plt.xlabel('Iterations');  # Подписи х
+#SMALL_SIZE = 12
+#MEDIUM_SIZE = 16
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+#plt.ylabel('Фитнесс-функция',**csfont);  # Подписи у
+#plt.xlabel('Итерации', **csfont);  # Подписи х
+
 
 #plt.xlim(0,               4096     );  
 #plt.ylim(0,              2 );  
 
 #plt.xticks(np.arange(0,4096,500))
-#plt.yticks(np.arange(0,2,0.1))
+#plt.yticks(np.arange(0,2,0.2))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.plot(x,y1, 'ro', markersize = 2, label ='Mutation 3 %');
-#plt.plot(x,y2, 'k+', markersize = 2, label ='Mutation 30 %');
 
+#plt.plot(x,y1, 'rv-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='Мутация 3 %' ,markevery=500);
+#plt.plot(x,y2, 'gP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='Мутация 30 %',markevery=500);
 
 #plt.legend(loc=0);
-#plt.show()
+
+#plt.show();
 ############################################################
 
 
@@ -342,23 +563,41 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y3 = ViewResult3.Final_Fitness_List;
 #y4 = ViewResult4.Final_Fitness_List;
 
-#plt.ylabel('Fitness Value');  # Подписи у
-#plt.xlabel('Iterations');  # Подписи х
 
-#plt.xlim(0,               4096    );  
+#SMALL_SIZE = 12
+#MEDIUM_SIZE = 16
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+#plt.ylabel('Фитнесс-функция',**csfont);  # Подписи у
+#plt.xlabel('Итерации', **csfont);  # Подписи х
+
+#plt.xlim(0,               350    );  
 #plt.ylim(0.4,              1.9 );  
 
-#plt.xticks(np.arange(0,4096,100))
+#plt.xticks(np.arange(0,350,50))
 #plt.yticks(np.arange(0.4,1.9,0.1))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.plot(x,y1, 'rh-', markersize = 3.5,markerFacecolor = 'k', label ='Panmix Only');
-#plt.plot(x,y2, 'go-', markersize = 3.5, markerFacecolor = 'w',label ='Outbreeding Only');
-#plt.plot(x,y3, 'b*-', markersize = 3.5,markerFacecolor = 'y', label ='Inbreeding Only');
-#plt.plot(x,y4, 'k+-', markersize = 3.5, markerFacecolor = 'r',label ='All %');
+#plt.plot(x,y1, 'rs-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='Панмиксия' ,markevery=25);
+#plt.plot(x,y2, 'g8-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w',label ='Аутбридинг',markevery=25 );
+#plt.plot(x,y3, 'bv-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y', label ='Инбридинг',markevery=25);
+#plt.plot(x,y4, 'kP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'r',label ='Всё операторы',markevery=25);
 
-#plt.legend(loc=0);
+#plt.legend(loc=0, prop={"family":"Times New Roman"});
+
+
+
 #plt.show()
 ############################################################
 
@@ -389,26 +628,43 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y8 = ViewResult115.Final_RMS_Phase_List;
 #y9 = ViewResult12.Final_RMS_Phase_List;
 
-#plt.ylabel('RMS Phase Error, °');  # Подписи у
-#plt.xlabel('Frequency, GHz');  # Подписи х
+
+
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+
+#plt.ylabel('RMS Phase Error, °',**csfont);  # Подписи у
+#plt.xlabel('Frequency, GHz',**csfont);  # Подписи х
 
 #plt.xlim(5,               15.5     );  
-#plt.ylim(0,               5 );  
+#plt.ylim(0.25,               5 );  
 
 #plt.xticks(np.arange(5,15.5,1))
-#plt.yticks(np.arange(0,5,0.25))
+#plt.yticks(np.arange(0.25,5,0.25))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.plot(x,y1, 'ro-', markersize = 4, markerFacecolor = 'k', label ='8 GHz');
-#plt.plot(x,y2, 'go-', markersize = 4,  markerFacecolor = 'y',label ='8.5 GHz');
-#plt.plot(x,y3, 'bh-', markersize = 4,  markerFacecolor = 'w',label ='9 GHz');
-#plt.plot(x,y4, 'kd-', markersize = 4,  markerFacecolor = 'k',label ='9.5 GHz');
-#plt.plot(x,y5, 'mh-', markersize = 4, markerFacecolor = 'k', label ='10 GHz');
-#plt.plot(x,y6, 'yo-', markersize = 4,  markerFacecolor = 'g',label ='10.5 GHz');
-#plt.plot(x,y7, 'cd-', markersize = 4,  markerFacecolor = 'k',label ='11 GHz');
-#plt.plot(x,y8, 'kh-', markersize = 4,  markerFacecolor = 'y',label ='11.5 GHz');
-#plt.plot(x,y9, 'ko-', markersize = 4,  markerFacecolor = 'w',label ='12 GHz');
+#plt.plot(x,y1, 'ro-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='8 GHz' ,markevery=5);
+#plt.plot(x,y2, 'gP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='8.5 GHz',markevery=5);
+#plt.plot(x,y3, 'bs-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'w', label ='9 GHz' ,markevery=5);
+#plt.plot(x,y4, 'kd-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='9.5 GHz',markevery=5);
+#plt.plot(x,y5, 'yh-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'g', label ='10 GHz' ,markevery=5);
+#plt.plot(x,y6, 'cP-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'r',label ='10.5 GHz',markevery=5);
+#plt.plot(x,y7, 'rv-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='11 GHz' ,markevery=5);
+#plt.plot(x,y8, 'k.-.', markersize = 9, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'y',label ='11.5 GHz',markevery=5);
+#plt.plot(x,y9, 'r*-', markersize = 6.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='12 GHz' ,markevery=5);
 
 #plt.legend(loc=0);
 #plt.show()
@@ -426,24 +682,39 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 #y2 = ViewResultHuman.Final_RMS_Phase_List;
 
 
-#plt.ylabel('RMS Phase Error, °');  # Подписи у
-#plt.xlabel('Frequency, GHz');  # Подписи х
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
+
+#plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
+
+
+#plt.ylabel('RMS Phase Error, °',**csfont);  # Подписи у
+#plt.xlabel('Frequency, GHz',**csfont);  # Подписи х
 
 #plt.xlim(5,               15     );  
-#plt.ylim(0,               4 );  
+#plt.ylim(0.25,               4 );  
 
 #plt.xticks(np.arange(5,15.5,1))
-#plt.yticks(np.arange(0,4,0.25))
+#plt.yticks(np.arange(0.25,4,0.25))
 
 #plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.plot(x,y1, 'ro-', markersize = 4, markerFacecolor = 'k', label ='10 GHz GA');
-#plt.plot(x,y2, 'ko-', markersize = 4,  markerFacecolor = 'y',label ='10 GHz Human');
+#plt.plot(x,y1, 'rd-', markersize = 7, markerFacecolor = 'k', label ='10 GHz GA',markevery=5);
+#plt.plot(x,y2, 'kP-.', markersize = 7,  markerFacecolor = 'w',label ='10 GHz Human',markevery=5);
 
 
 #plt.legend(loc=0);
 #plt.show()
-###########################################################
+##########################################################
 
 
 
@@ -451,124 +722,255 @@ pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Sm
 ###################Круговая градусы
 #ViewResult10 = pickle.load(open('FullDataSet_10GHz.pkl', 'rb'));
 
+#first_real = -113.27;
 
-#R_S21 =  ViewResult10.Final_S21_List;
+
+#rho =  ViewResult10.Final_S21_List;
 #theta =  ViewResult10.Final_Phase_List;
 
 #theta = np.ndarray.tolist(theta);
+
+#RHO = [];
+#Theta = [];
+
+#for i in range(0,64,1):
+#    #Theta.append(theta[i]+first_real);
+#    RHO.append(10**(rho[i]/20))
+
+
+
+#RHO = RHO;
+#Theta = theta;
+
+
+
+##X = [];
+##Y = [];
+
+##for i in range (0,64,1):
+##    X.append(math.cos(Theta[i])*RHO[i])
+##    Y.append(math.sin(Theta[i])*RHO[i])
+
+
+##Z = [];
+
+##for i in range(0,64,1):
+##    Z.append(complex(X[i],Y[i]))
+
+##Z =  np.array(Z);
+
+
+##plt.polar(Z,'o');
+##plt.show;
+
+
+
+
 #NewTheta = [];
 #New_R21 = [];
 
-#for i in range(len(theta)):
-#    NewTheta.append(theta[i]*(np.pi/180))
+#for i in range(len(Theta)):
+#    NewTheta.append(Theta[i]*(np.pi/180)- (0*(np.pi/180)))
 
-#for j in range(len(R_S21)):
-#    New_R21.append(20**(R_S21[j]/10))
-
+#for j in range(len(RHO)):
+#    New_R21.append(RHO[j])
+#    #New_R21.append(R_S21[j])
 
 #Type_RS21 = type(New_R21);
 #Type_Theta = type(NewTheta);
 
-#plt.polar(NewTheta,  New_R21, 'rh', MarkerSize = 4);
-#plt.show();
-###############################################################
+#plt.polar(NewTheta,  New_R21, 'rh', markersize = 6, linewidth = 1, markeredgewidth = 1.25, markerFacecolor = 'r', label ='Оптимизация с ГА, 10 ГГц');
 
 
-
-###################### Градусы по состояниям #####################
-#ViewResult10 = pickle.load(open('FullDataSet_10GHz.pkl', 'rb'));
-#FinalSet_List = [];
-#FreqStates = []
+#ViewResult10_bad = pickle.load(open('FullDataSet_10GHz_BadHuman.pkl', 'rb'));
 
 
-#def getPhaseFreq(State_Number, BitA, BitB, Freq):
-#    ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
-#    Fi  = float(ntwk.s21[str(Freq)+'ghz'].s_deg[...]);
-#    StatePhase = Fi;
-#    return StatePhase
+#R_S21_bad =  ViewResult10_bad.Final_S21_List;
+#theta_bad =  ViewResult10_bad.Final_Phase_List;
+
+#theta_bad = np.ndarray.tolist(theta_bad);
+#NewTheta_bad = [];
+#New_R21_Bad = [];
+
+#for i in range(len(theta_bad)):
+#    NewTheta_bad.append(theta_bad[i]*(np.pi/180))
+
+#for j in range(len(R_S21_bad)):
+#    New_R21_Bad.append(10**(R_S21[j]/20))
 
 
-#FinalSet_List = [];
-#PhaseListFreq = [];
+#plt.polar(NewTheta_bad,  New_R21_Bad, 'bP', markersize = 3, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='Not Optimized');
 
 
+#IdealTheta = [];
+#Ideal_R21 = []; 
 
-#for allstates in range(0,64,1):
-#    for allfreqlist in np.arange(5,15,0.1):
-#        print('я работаю, подожди  '+str(allstates));
-#        PhaseListFreq.append(getPhaseFreq(allstates,ViewResult10.Final_StateList[allstates].StateBitA,ViewResult10.Final_StateList[allstates].StateBitB,allfreqlist))
+#NormalPhaseList = [];
 
- 
-#    FinalSet_List.append(PhaseListFreq);
-#    PhaseListFreq=[];
-
+#for state in range(0,64,1):
+#    Phase = state*5.625;
+#    NormalPhaseList.append(Phase);
 
 
-#FirstStatePhaseList = [];
+#for i in range(len(NormalPhaseList)):
+#    IdealTheta.append(NormalPhaseList[i]*(np.pi/180))
 
-#for i in range(len(np.arange(5,15,0.1))):
-#    FirstStatePhaseList.append(FinalSet_List[0][i]);
-
-#for freq_range in range(len(np.arange(5,15,0.1))):
-#    for states_unwrap in range(0,64,1):
-#        FinalSet_List[states_unwrap][freq_range] = FinalSet_List[states_unwrap][freq_range]-FirstStatePhaseList[freq_range];
-
-
-#Final_List_Phases = [];
-
-#for freqlist in range(len(np.arange(5,15,0.1))):
-
-#    FreqOneList = [];
-
-#    for i in range(0,64,1):
-
-#        FreqOneList.append(FinalSet_List[i][freqlist]-FinalSet_List[0][freqlist]);
-      
-#    FreqOneList = np.deg2rad(FreqOneList);
-#    FreqOneList = np.unwrap(FreqOneList);
-#    FreqOneList = np.rad2deg(FreqOneList);
-#    Final_List_Phases.append(FreqOneList)
- 
-
-#SuperFinal = [];
-#TempFreqs = [];
-#for freq_range in range(len(np.arange(5,15,0.1))):
-#    for states_unwrap in range(0,64,1):
-#        TempFreqs.append(Final_List_Phases[freq_range][states_unwrap]);
-
-#    SuperFinal.append(TempFreqs);
-#    TempFreqs = [];
-
-
-
-
-#LastChance = [];
-#Tempo = [];
+#Mean_s21  = statistics.mean(New_R21)
 
 #for j in range(0,64,1):
-#    for i in range(len(np.arange(5,15,0.1))):
-#        Tempo.append(SuperFinal[i][j]);
-#    LastChance.append(Tempo);
-#    Tempo = [];
+#    Ideal_R21.append(Mean_s21);
 
 
 
+#plt.polar(IdealTheta,  Ideal_R21, 'kP', markersize = 4.5, linewidth = 1, markeredgewidth = 1, markerFacecolor = 'k', label ='Идеальный шаг 5,625, усиление 1,75 дБ');
 
-#x = np.arange(5,15,0.1);
+##for d in range (0,64,1):
+#   # plt.arrow(0, 0, NewTheta[d], New_R21[d], alpha = 0.5, width = 0.01, edgecolor = 'black', facecolor = 'k', lw = 0.5, zorder = 1)
 
-#for i in range(0,64,1):
-#    plt.plot(x,LastChance[i]);
 
-#plt.grid(color='k', linestyle='--', linewidth=0.3)
 
-#plt.xlim(5,15);
-#plt.xticks(np.arange(5,15.5,1))
-#plt.yticks(np.arange(0,360, 11.25))
+#plt.ylim(0,1.5)
 
-#plt.xlabel('Частота, ГГц')
-#plt.ylabel('Фаза сигнала, °')
+#plt.yticks(np.arange(0,1.5,0.5))
+
+#plt.grid(True);
+
+#plt.legend(loc=3);
+
+
 #plt.show();
-################################################
+#################################################################
+
+
+
+##################### Градусы по состояниям #####################
+ViewResult10 = pickle.load(open('FullDataSet_10GHz.pkl', 'rb'));
+FinalSet_List = [];
+FreqStates = []
+
+
+def getPhaseFreq(State_Number, BitA, BitB, Freq):
+    ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
+    Fi  = float(ntwk.s21[str(Freq)+'ghz'].s_deg[...]);
+    StatePhase = Fi;
+    return StatePhase
+
+
+FinalSet_List = [];
+PhaseListFreq = [];
+
+
+
+for allstates in range(0,64,1):
+    for allfreqlist in np.arange(2,20,0.1):
+        print('я работаю, подожди  '+str(allstates));
+        PhaseListFreq.append(getPhaseFreq(allstates,ViewResult10.Final_StateList[allstates].StateBitA,ViewResult10.Final_StateList[allstates].StateBitB,allfreqlist))
+
+ 
+    FinalSet_List.append(PhaseListFreq);
+    PhaseListFreq=[];
+
+
+
+FirstStatePhaseList = [];
+
+for i in range(len(np.arange(2,20,0.1))):
+    FirstStatePhaseList.append(FinalSet_List[0][i]);
+
+for freq_range in range(len(np.arange(2,20,0.1))):
+    for states_unwrap in range(0,64,1):
+        FinalSet_List[states_unwrap][freq_range] = FinalSet_List[states_unwrap][freq_range]-FirstStatePhaseList[freq_range];
+
+
+Final_List_Phases = [];
+
+for freqlist in range(len(np.arange(2,20,0.1))):
+
+    FreqOneList = [];
+
+    for i in range(0,64,1):
+
+        FreqOneList.append(FinalSet_List[i][freqlist]-FinalSet_List[0][freqlist]);
+      
+    FreqOneList = np.deg2rad(FreqOneList);
+    FreqOneList = np.unwrap(FreqOneList);
+    FreqOneList = np.rad2deg(FreqOneList);
+    Final_List_Phases.append(FreqOneList)
+ 
+
+SuperFinal = [];
+TempFreqs = [];
+for freq_range in range(len(np.arange(2,20,0.1))):
+    for states_unwrap in range(0,64,1):
+        TempFreqs.append(Final_List_Phases[freq_range][states_unwrap]);
+
+    SuperFinal.append(TempFreqs);
+    TempFreqs = [];
+
+
+LastChance = [];
+Tempo = [];
+
+for j in range(0,64,1):
+    for i in range(len(np.arange(2,20,0.1))):
+        Tempo.append(SuperFinal[i][j]);
+    LastChance.append(Tempo);
+    Tempo = [];
+
+
+SMALL_SIZE = 15
+MEDIUM_SIZE = 18
+BIGGER_SIZE = 22
+
+plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+csfont = {'fontname':'Times New Roman'}
+
+
+x = np.arange(2,20,0.1);
+
+for i in range(0,64,1):
+    plt.plot(x,LastChance[i]);
+
+plt.grid(color='k', linestyle='--', linewidth=0.3)
+
+plt.xlim(2,20);
+plt.ylim(0,370);
+
+
+SMALL_SIZE = 18
+MEDIUM_SIZE = 18
+BIGGER_SIZE = 22
+
+plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+csfont = {'fontname':'Times New Roman'}
+
+
+
+
+plt.xticks(np.arange(2,20,1))
+plt.yticks(np.arange(0,370, 45))
+
+plt.xlabel('Частота, ГГц',**csfont); 
+plt.ylabel('Значение фазы по состояниям, °',**csfont);
+
+
+
+plt.show();
+###############################################
 
 
 
