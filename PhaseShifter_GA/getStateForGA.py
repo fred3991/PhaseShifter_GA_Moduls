@@ -16,7 +16,7 @@ from GetSystemByNumber import GetSystemByNumber
 import ConfigModule
 
 
-FileSystemCheck = os.path.exists('C:/Users/FedorovEA/source/repos/PhaseShifter_GA/PhaseShifter_GA/FileSystem'+str(ConfigModule.frequency)+'GHz.pkl')
+FileSystemCheck = os.path.exists('C:/MyDocz/Repositories/PhaseShifter_GA_Narrow_Band/PhaseShifter_GA/FileSystem'+str(ConfigModule.frequency)+'GHz.pkl')
 
 if FileSystemCheck==False:
 
@@ -32,7 +32,7 @@ if FileSystemCheck==False:
     pickle.dump(FileSystem, open('FileSystem'+str(ConfigModule.frequency)+'GHz.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
 if FileSystemCheck==True:
     print('FileSystem Exist!!!');
-    FileSystem = pickle.load(open('C:/Users/FedorovEA/source/repos/PhaseShifter_GA/PhaseShifter_GA/FileSystem'+str(ConfigModule.frequency)+'GHz.pkl', 'rb'))
+    FileSystem = pickle.load(open('C:/MyDocz/Repositories/PhaseShifter_GA_Narrow_Band/PhaseShifter_GA/FileSystem'+str(ConfigModule.frequency)+'GHz.pkl', 'rb'))
 
 
 

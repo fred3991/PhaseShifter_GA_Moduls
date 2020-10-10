@@ -82,7 +82,8 @@ def GeneticAlgorithm(PopulSize, FitnessGoal, MutationCoefficient, Iteration):
         print('Population After '+str(len(Population)));
         print('Best fitness After iteration is '+str(Population[0].FitnessValue))
         print ('List of Fitness.....');
-        print('S21 is !!!!!! '+str(Population[0].RMS_S21))
+        print('RMS Phase is !!!!!! '+str(Population[0].RMS_Phase));
+        print('RMS S21 is !!!!!! '+str(Population[0].RMS_S21))
         for i in range(0,9,1):
             print('Chromosome '+str(i)+' Fitness is '+str(Population[i].FitnessValue));
         if Population[0].FitnessValue<FitnessGoal:

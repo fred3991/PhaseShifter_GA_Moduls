@@ -110,22 +110,17 @@ from DrawFunction import DrawFunction
 
 
 
+FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
+DataResult = GetFinalSystem(FinalSolution); 
 
+ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz_Test.txt', 'w')
+ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
+ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
+ConfigStateFile.write(DataResult.StateSystemName);
+ConfigStateFile.close;
 
-
-
-
-#FinalSolution, IterationList, FitnessList = GeneticAlgorithm(ConfigModule.PopulSize, ConfigModule.FitnessGoal, ConfigModule.MutationCoefficient, ConfigModule.Iterations);
-#DataResult = GetFinalSystem(FinalSolution); 
-
-#ConfigStateFile = open('ConfigStateFile_'+str(ConfigModule.frequency)+'GHz_Test.txt', 'w')
-#ConfigStateFile.write('RMS Phase error '+str(FinalSolution.RMS_Phase)+'\n');
-#ConfigStateFile.write('RMS S21 error '+str(FinalSolution.RMS_S21)+'\n');
-#ConfigStateFile.write(DataResult.StateSystemName);
-#ConfigStateFile.close;
-
-#FullDataSet = CreateDataSet(FinalSolution, IterationList, FitnessList, DataResult);
-#pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Test.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
+FullDataSet = CreateDataSet(FinalSolution, IterationList, FitnessList, DataResult);
+pickle.dump(FullDataSet, open('FullDataSet_'+str(ConfigModule.frequency)+'GHz_Test.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL);
 
 
 
@@ -178,21 +173,6 @@ from DrawFunction import DrawFunction
 #plt.legend(loc=0);
 #plt.show()
 ########################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #############################    GHz
@@ -843,134 +823,134 @@ from DrawFunction import DrawFunction
 
 
 
-##################### Градусы по состояниям #####################
-ViewResult10 = pickle.load(open('FullDataSet_10GHz.pkl', 'rb'));
-FinalSet_List = [];
-FreqStates = []
+###################### Градусы по состояниям #####################
+#ViewResult10 = pickle.load(open('FullDataSet_10GHz.pkl', 'rb'));
+#FinalSet_List = [];
+#FreqStates = []
 
 
-def getPhaseFreq(State_Number, BitA, BitB, Freq):
-    ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
-    Fi  = float(ntwk.s21[str(Freq)+'ghz'].s_deg[...]);
-    StatePhase = Fi;
-    return StatePhase
+#def getPhaseFreq(State_Number, BitA, BitB, Freq):
+#    ntwk = rf.Network('C:/Users/FedorovEA/data/state'+str(State_Number)+'/PS_test__'+str(State_Number)+'_'+str(BitA)+'_'+str(BitB)+'.s2p')
+#    Fi  = float(ntwk.s21[str(Freq)+'ghz'].s_deg[...]);
+#    StatePhase = Fi;
+#    return StatePhase
 
 
-FinalSet_List = [];
-PhaseListFreq = [];
+#FinalSet_List = [];
+#PhaseListFreq = [];
 
 
 
-for allstates in range(0,64,1):
-    for allfreqlist in np.arange(2,20,0.1):
-        print('я работаю, подожди  '+str(allstates));
-        PhaseListFreq.append(getPhaseFreq(allstates,ViewResult10.Final_StateList[allstates].StateBitA,ViewResult10.Final_StateList[allstates].StateBitB,allfreqlist))
+#for allstates in range(0,64,1):
+#    for allfreqlist in np.arange(2,20,0.1):
+#        print('я работаю, подожди  '+str(allstates));
+#        PhaseListFreq.append(getPhaseFreq(allstates,ViewResult10.Final_StateList[allstates].StateBitA,ViewResult10.Final_StateList[allstates].StateBitB,allfreqlist))
 
  
-    FinalSet_List.append(PhaseListFreq);
-    PhaseListFreq=[];
+#    FinalSet_List.append(PhaseListFreq);
+#    PhaseListFreq=[];
 
 
 
-FirstStatePhaseList = [];
+#FirstStatePhaseList = [];
 
-for i in range(len(np.arange(2,20,0.1))):
-    FirstStatePhaseList.append(FinalSet_List[0][i]);
+#for i in range(len(np.arange(2,20,0.1))):
+#    FirstStatePhaseList.append(FinalSet_List[0][i]);
 
-for freq_range in range(len(np.arange(2,20,0.1))):
-    for states_unwrap in range(0,64,1):
-        FinalSet_List[states_unwrap][freq_range] = FinalSet_List[states_unwrap][freq_range]-FirstStatePhaseList[freq_range];
+#for freq_range in range(len(np.arange(2,20,0.1))):
+#    for states_unwrap in range(0,64,1):
+#        FinalSet_List[states_unwrap][freq_range] = FinalSet_List[states_unwrap][freq_range]-FirstStatePhaseList[freq_range];
 
 
-Final_List_Phases = [];
+#Final_List_Phases = [];
 
-for freqlist in range(len(np.arange(2,20,0.1))):
+#for freqlist in range(len(np.arange(2,20,0.1))):
 
-    FreqOneList = [];
+#    FreqOneList = [];
 
-    for i in range(0,64,1):
+#    for i in range(0,64,1):
 
-        FreqOneList.append(FinalSet_List[i][freqlist]-FinalSet_List[0][freqlist]);
+#        FreqOneList.append(FinalSet_List[i][freqlist]-FinalSet_List[0][freqlist]);
       
-    FreqOneList = np.deg2rad(FreqOneList);
-    FreqOneList = np.unwrap(FreqOneList);
-    FreqOneList = np.rad2deg(FreqOneList);
-    Final_List_Phases.append(FreqOneList)
+#    FreqOneList = np.deg2rad(FreqOneList);
+#    FreqOneList = np.unwrap(FreqOneList);
+#    FreqOneList = np.rad2deg(FreqOneList);
+#    Final_List_Phases.append(FreqOneList)
  
 
-SuperFinal = [];
-TempFreqs = [];
-for freq_range in range(len(np.arange(2,20,0.1))):
-    for states_unwrap in range(0,64,1):
-        TempFreqs.append(Final_List_Phases[freq_range][states_unwrap]);
+#SuperFinal = [];
+#TempFreqs = [];
+#for freq_range in range(len(np.arange(2,20,0.1))):
+#    for states_unwrap in range(0,64,1):
+#        TempFreqs.append(Final_List_Phases[freq_range][states_unwrap]);
 
-    SuperFinal.append(TempFreqs);
-    TempFreqs = [];
-
-
-LastChance = [];
-Tempo = [];
-
-for j in range(0,64,1):
-    for i in range(len(np.arange(2,20,0.1))):
-        Tempo.append(SuperFinal[i][j]);
-    LastChance.append(Tempo);
-    Tempo = [];
+#    SuperFinal.append(TempFreqs);
+#    TempFreqs = [];
 
 
-SMALL_SIZE = 15
-MEDIUM_SIZE = 18
-BIGGER_SIZE = 22
+#LastChance = [];
+#Tempo = [];
 
-plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
-plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
-plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
-
-csfont = {'fontname':'Times New Roman'}
+#for j in range(0,64,1):
+#    for i in range(len(np.arange(2,20,0.1))):
+#        Tempo.append(SuperFinal[i][j]);
+#    LastChance.append(Tempo);
+#    Tempo = [];
 
 
-x = np.arange(2,20,0.1);
+#SMALL_SIZE = 15
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
 
-for i in range(0,64,1):
-    plt.plot(x,LastChance[i]);
+#plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-plt.grid(color='k', linestyle='--', linewidth=0.3)
-
-plt.xlim(2,20);
-plt.ylim(0,370);
-
-
-SMALL_SIZE = 18
-MEDIUM_SIZE = 18
-BIGGER_SIZE = 22
-
-plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
-plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
-plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
-
-csfont = {'fontname':'Times New Roman'}
+#csfont = {'fontname':'Times New Roman'}
 
 
+#x = np.arange(2,20,0.1);
+
+#for i in range(0,64,1):
+#    plt.plot(x,LastChance[i]);
+
+#plt.grid(color='k', linestyle='--', linewidth=0.3)
+
+#plt.xlim(2,20);
+#plt.ylim(0,370);
 
 
-plt.xticks(np.arange(2,20,1))
-plt.yticks(np.arange(0,370, 45))
+#SMALL_SIZE = 18
+#MEDIUM_SIZE = 18
+#BIGGER_SIZE = 22
 
-plt.xlabel('Частота, ГГц',**csfont); 
-plt.ylabel('Значение фазы по состояниям, °',**csfont);
+#plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+#plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+#plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+#plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+#plt.rc('legend', fontsize=MEDIUM_SIZE)    # legend fontsize
+#plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+#csfont = {'fontname':'Times New Roman'}
 
 
 
-plt.show();
-###############################################
+
+#plt.xticks(np.arange(2,20,1))
+#plt.yticks(np.arange(0,370, 45))
+
+#plt.xlabel('Частота, ГГц',**csfont); 
+#plt.ylabel('Значение фазы по состояниям, °',**csfont);
+
+
+
+#plt.show();
+################################################
 
 
 
